@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>nunjuk.in - Pemendek URL / Link</title>
+    <title>nunjuk.in - Pemendek URL</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" src="favicon.ico" type="image/x-icon">
@@ -26,21 +26,31 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="heading-center">Pemendek URL / Link</h1>
+      <h1 class="heading-center">Pemendek URL</h1>
       <h1 id="short" class="text-center mt-4" style="font-size: 32px;">nunjuk.in</h1>
-      <div class="form-group row mt-3">
-        <input id="url" class="form-control col-10 ml-auto" placeholder="URL yang akan dipendekin">
-        <button id="shorten" class="btn btn-primary col-1 ml-2 mr-auto">Pendekin</button>
+      <div class="input-group mb-3">
+        <input id="url" type="text" class="form-control" placeholder="URL yang akan dipendekin" aria-label="URL yang akan dipendekin" aria-describedby="shorten">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="shorten">Pendekin</button>
+        </div>
       </div>
-      <div class="form-group row mt-3">
-        <span class="ml-auto mt-2">URL Pendek</span>
-        <input id="short" class="form-control col-9 ml-2">
-        <button id="copy-url" onclick="copy('short')" class="btn btn-secondary col-1 ml-2 mr-auto">Copy</button>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="short">URL Pendek</label>
+        </div>
+        <input id="short" class="form-control" aria-describedby="copy-url">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="copy-url" onclick="copy('short')">Copy</button>
+        </div>
       </div>
-      <div class="form-group row mt-3">
-        <span class="ml-auto mt-2">Analytics URL</span>
-        <input id="analytics" class="form-control col-9 ml-1">
-        <button id="copy-analytics" onclick="copy('analytics')" class="btn btn-secondary col-1 ml-2 mr-auto">Copy</button>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="analytics">Analytics URL</label>
+        </div>
+        <input id="analytics" class="form-control" aria-describedby="copy-analytics">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="copy-analytics" onclick="copy('analytics')">Copy</button>
+        </div>
       </div>
     </div>
     <script>
