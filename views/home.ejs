@@ -36,11 +36,11 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="short">URL Pendek</label>
+          <label class="input-group-text" for="pendek">URL Pendek</label>
         </div>
-        <input id="short" class="form-control" aria-describedby="copy-url">
+        <input id="pendek" class="form-control" aria-describedby="copy-url">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="copy-url" onclick="copy('short')">Copy</button>
+          <button class="btn btn-outline-secondary" type="button" id="copy-url" onclick="copy('pendek')">Copy</button>
         </div>
       </div>
       <div class="input-group mb-3">
@@ -64,7 +64,7 @@
         $('#shorten').click(function() {
           const url = $('#url').val();
           $.ajax({url: '/', data: { url }, type: 'POST', success: function(res) {
-            $('#short').val(window.location.hostname+'/'+res.url);
+            $('#pendek').val(window.location.hostname+'/'+res.url);
             $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
           }})
         })
