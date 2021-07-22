@@ -1,0 +1,15 @@
+---
+application:
+  name: "nodejs-posgresql"
+  project: "Quotes"
+  organization: "QoveryCommunity"
+databases:
+- type: "POSTGRESQL"
+  name: "quotes"
+  version: "12"
+routers:
+- name: "main-nodejs-posgresql"
+  routes:
+  - application_name: "nodejs-posgresql"
+    paths:
+    - "/*"
