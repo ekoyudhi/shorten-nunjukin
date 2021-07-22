@@ -23,6 +23,8 @@ const fs = require('fs');
 const Url = mongoose.model('Url');
 
 router.get('/', (req, res) => {
+  res.render('home');
+  /*
   res.writeHead(200, {
     'Content-Type': 'text/html'
   });
@@ -35,6 +37,7 @@ router.get('/', (req, res) => {
     }
     res.end();
   });
+  */
 })
 
 router.post('/', async (req, res) => {
@@ -66,6 +69,8 @@ router.get('/:route', async (req, res) => {
 })
 
 router.get('/analytics/:route', async (req, res) => {
+  res.render('count');
+  /*
   res.writeHead(200, {
     'Content-Type': 'text/html'
   });
@@ -78,6 +83,7 @@ router.get('/analytics/:route', async (req, res) => {
     }
     res.end();
   });
+  */
 })
 
 router.post('/analytics', async (req, res) => {
