@@ -58,7 +58,7 @@ router.post('/captcha', async (req, res) => {
             })
             .then(function (response) {
               //const resBody = JSON.parse(response.data);
-              if (response.status == 200) {
+              if (response.data['success'] == 'true') {
                 const instance = new Url({
                   url: url,
                   visitors: 0
