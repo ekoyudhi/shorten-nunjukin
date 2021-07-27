@@ -1,7 +1,7 @@
 mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const request = require('request');
 
 const DATABASE = 'mongodb+srv://'+ process.env.USER +':'+ process.env.PASSWORD +'@'+ process.env.MONGO_URL
 mongoose.connect(DATABASE, {
@@ -50,29 +50,26 @@ router.post('/captcha', async (req, res) => {
   
   const url = req.body.url;
   const captcha = req.body.captcha;
-  const params = {"secret" : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", "response" : captcha}
-  axios.post('https://www.google.com/recaptcha/api/siteverify', 
-            {
-              secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp",
-              response : captcha
-            })
-            .then(function (response) {
-              //const resBody = JSON.parse(response.data);
-              if (response.data.action == 'check_captcha') {
-                const instance = new Url({
-                  url: url,
-                  visitors: 0
-                });
-                short = JSON.stringify(instance._id)
-                const id = short.slice(short.length-7, short.length-1)
-                instance.id = id;
-                (async () => {await instance.save()})
-                res.send({
-                  message: `${id} was created`,
-                  url: `${id}`,
-                });
-              }
+  const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
+  request.post({
+    url:'https://www.google.com/recaptcha/api/siteverify', 
+    body : {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha},
+    json : true}, function(err,httpResponse,body){
+    var resBody = JSON.parse(body)
+    const url = req.body.url;
+    const instance = new Url({
+      url: url,
+      visitors: 0
+    });
+    short = JSON.stringify(instance._id)
+    const id = short.slice(short.length-7, short.length-1)
+    instance.id = id;
+    (async() => {await instance.save()});
+    res.send({
+      message: `${id} was created`,
+      url: `${id}`,
   });
+})
   /*
   const url = req.body.url;
   const instance = new Url({
