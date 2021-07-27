@@ -1,7 +1,7 @@
 mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const fetch = require('isomorphic-fetch');
 const got = require('got');
 
 const DATABASE = 'mongodb+srv://'+ process.env.USER +':'+ process.env.PASSWORD +'@'+ process.env.MONGO_URL
@@ -52,16 +52,16 @@ router.post('/captcha', async (req, res) => {
   const token = req.body.token;
   console.log(url);
   console.log(token);
-  //const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
-  
-  const {body} = await got.post('https://www.google.com/recaptcha/api/siteverify', {
-    json: {
-      secret : '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp',
-      response : token
-    },
-    responseType: 'json'
-  });
-  console.log(body);
+  const secret = '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp';
+
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
+
+    fetch(url, {
+        method: 'post'
+    })
+    .then(function(response) {
+      console.log(response.json());
+    });
   //if (body.success == true) {
     const instance = new Url({
       url: url,
