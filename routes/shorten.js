@@ -1,7 +1,7 @@
 mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const request = require('request');
+const got = require('got');
 
 const DATABASE = 'mongodb+srv://'+ process.env.USER +':'+ process.env.PASSWORD +'@'+ process.env.MONGO_URL
 mongoose.connect(DATABASE, {
@@ -47,16 +47,17 @@ router.get('/captcha', (req, res) => {
   res.render('captcha');
 });
 router.post('/captcha', async (req, res) => {
-  
   const url = req.body.url;
   const captcha = req.body.captcha;
   const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
-  request.post({
-    url:'https://www.google.com/recaptcha/api/siteverify', 
-    body : {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha},
-    json : true}, function(err,httpResponse,body){
-    var resBody = JSON.parse(body)
-    const url = req.body.url;
+  const { body } = await got.post('https://www.google.com/recaptcha/api/siteverify', {
+        json : {
+          secret : '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp',
+          response : captcha
+        },
+        responseType : 'json'
+  });
+  if (body.success == true) {
     const instance = new Url({
       url: url,
       visitors: 0
@@ -68,7 +69,8 @@ router.post('/captcha', async (req, res) => {
     res.send({
       message: `${id} was created`,
       url: `${id}`,
-  });
+    });
+  }
 })
   /*
   const url = req.body.url;
@@ -85,7 +87,6 @@ router.post('/captcha', async (req, res) => {
     url: `${id}`,
   });
   */
-})
 
 
 router.get('/:route', async (req, res) => {
