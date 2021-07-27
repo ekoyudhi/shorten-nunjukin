@@ -2,6 +2,7 @@ mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const got = require('got');
 
 const DATABASE = 'mongodb+srv://'+ process.env.USER +':'+ process.env.PASSWORD +'@'+ process.env.MONGO_URL
 mongoose.connect(DATABASE, {
