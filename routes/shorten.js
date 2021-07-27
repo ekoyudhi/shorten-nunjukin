@@ -47,6 +47,7 @@ router.get('/captcha', (req, res) => {
   res.render('captcha');
 });
 router.post('/captcha', async (req, res) => {
+  /*
   const url = req.body.url;
   const captcha = req.body.captcha;
   const params = {"secret" : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", "response" : captcha}
@@ -67,14 +68,20 @@ router.post('/captcha', async (req, res) => {
       });
     }
   });
-  /*
-  request.post({url:'https://www.google.com/recaptcha/api/siteverify', params}, function(err,httpResponse,body){
-    const resBody = JSON.parse(body);
-    if (resBody.success === true) {
-      success = true;
-    }
-  });
   */
+  const url = req.body.url;
+  const instance = new Url({
+    url: url,
+    visitors: 0
+  });
+  short = JSON.stringify(instance._id)
+  const id = short.slice(short.length-7, short.length-1)
+  instance.id = id;
+  await instance.save()
+  res.send({
+    message: `${id} was created`,
+    url: `${id}`,
+  });
 })
 
 
