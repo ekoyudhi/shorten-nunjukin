@@ -53,14 +53,14 @@ router.post('/captcha', async (req, res) => {
   console.log(token);
   //const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
   
-  axios.post('https://www.google.com/recaptcha/api/siteverify',
-        {
-          secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp",
-          response : token
-        }).then(function (response){
-          console.log(response.data);
-        });
-  
+  const {body} = got.post('https://www.google.com/recaptcha/api/siteverify', {
+    json: {
+      secret : '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp',
+      response : token
+    },
+    responseType: 'json'
+  });
+  console.log(body);
   //if (body.success == true) {
     const instance = new Url({
       url: url,

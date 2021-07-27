@@ -16,7 +16,8 @@
     "mongoose": "^5.10.7",
     "ejs": "~2.6.1",
     "isomorphic-fetch": "3.0.0",
-    "axios": "0.21.1"
+    "axios": "0.21.1",
+    "got": "11.8.2"
   },
   "devDependencies": {
     "@architect/sandbox": "^3.3.7"
