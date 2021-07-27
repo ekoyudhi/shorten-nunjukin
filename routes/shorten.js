@@ -57,6 +57,8 @@ router.post('/captcha', async (req, res) => {
         },
         responseType : 'json'
   });
+  console.log(body)
+  /*
   if (body.success == true) {
     const instance = new Url({
       url: url,
@@ -71,6 +73,7 @@ router.post('/captcha', async (req, res) => {
       url: `${id}`,
     });
   }
+  */
 })
   /*
   const url = req.body.url;
