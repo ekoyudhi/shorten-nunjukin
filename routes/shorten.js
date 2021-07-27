@@ -58,7 +58,7 @@ router.post('/captcha', async (req, res) => {
             })
             .then(function (response) {
               //const resBody = JSON.parse(response.data);
-              //if (resBody.success === true) {
+              if (response.data.success === true) {
                 const instance = new Url({
                   url: url,
                   visitors: 0
@@ -71,7 +71,7 @@ router.post('/captcha', async (req, res) => {
                   message: `${id} was created`,
                   url: `${id}`,
                 });
-              //}
+              }
   });
   /*
   const url = req.body.url;
