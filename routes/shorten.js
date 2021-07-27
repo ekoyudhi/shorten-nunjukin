@@ -54,9 +54,9 @@ router.post('/captcha', async (req, res) => {
   console.log(token);
   const secret = '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp';
 
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
+  const ca = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
 
-    fetch(url, {
+    fetch(ca, {
         method: 'post'
     })
     .then(function(response) {
