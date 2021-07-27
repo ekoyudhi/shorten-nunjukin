@@ -25,20 +25,6 @@ const Url = mongoose.model('Url');
 
 router.get('/', (req, res) => {
   res.render('home');
-  /*
-  res.writeHead(200, {
-    'Content-Type': 'text/html'
-  });
-  fs.readFile('../views/home.html', null, function (error, data) {
-    if (error) {
-      res.writeHead(404);
-      res.write('Route not found!');
-    } else {
-      res.write(data);
-    }
-    res.end();
-  });
-  */
 })
 
 router.post('/', async (req, res) => {
@@ -74,7 +60,7 @@ router.post('/captcha', async (req, res) => {
       short = JSON.stringify(instance._id)
       const id = short.slice(short.length-7, short.length-1)
       instance.id = id;
-      await instance.save()
+      (async () => {await instance.save()})
       res.send({
         message: `${id} was created`,
         url: `${id}`,
