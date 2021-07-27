@@ -52,15 +52,15 @@ router.post('/captcha', async (req, res) => {
   console.log(url);
   console.log(token);
   //const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
-  /*
-  await axios.post('https://www.google.com/recaptcha/api/siteverify',
+  
+  axios.post('https://www.google.com/recaptcha/api/siteverify',
         {
           secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp",
-          response : captcha
+          response : token
         }).then(function (response){
           console.log(response.data);
         });
-  */
+  
   //if (body.success == true) {
     const instance = new Url({
       url: url,
