@@ -66,7 +66,7 @@
         grecaptcha.execute('6Lc5csIbAAAAADtns10HAQgHNLnZpNbp0A8JXZ4X', {action: 'check_captcha'}).then(function(token) {
           $('#shorten').click(function() {
               const url = $('#url').val();
-              $.ajax({url: '/captcha', data: { url : url, captcha : captcha}, type: 'POST', success: function(res) {
+              $.ajax({url: '/captcha', data: { url : url, captcha : token}, type: 'POST', success: function(res) {
                     $('#pendek').val(window.location.hostname+'/'+res.url);
                     $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
               }});
