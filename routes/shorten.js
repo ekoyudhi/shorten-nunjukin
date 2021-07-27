@@ -50,7 +50,7 @@ router.post('/captcha', async (req, res) => {
   const url = req.body.url;
   const captcha = req.body.captcha;
   const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
-  const { body } = await got.post('https://www.google.com/recaptcha/api/siteverify', {
+  const { body } = got.post('https://www.google.com/recaptcha/api/siteverify', {
         json : {
           secret : '6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp',
           response : captcha
@@ -58,6 +58,8 @@ router.post('/captcha', async (req, res) => {
         responseType : 'json'
   });
   console.log(body)
+  console.log(url)
+  console.log(captcha)
   
   //if (body.success == true) {
     const instance = new Url({
@@ -67,7 +69,7 @@ router.post('/captcha', async (req, res) => {
     short = JSON.stringify(instance._id)
     const id = short.slice(short.length-7, short.length-1)
     instance.id = id;
-    (async() => {await instance.save()});
+    //(async() => {await instance.save()});
     res.send({
       message: `${id} was created`,
       url: `${id}`,
