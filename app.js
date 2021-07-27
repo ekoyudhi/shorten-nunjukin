@@ -22,5 +22,6 @@ app.use(cookieParser());
 app.use('/', shortenRouter);
 //app.use('/', indexRouter);
 app.use('/quotes', quotesRouter);
+app.use('/captcha', shortenRouter)
 
 module.exports = app;
