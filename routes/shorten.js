@@ -48,8 +48,11 @@ router.get('/captcha', (req, res) => {
 });
 router.post('/captcha', async (req, res) => {
   const url = req.body.url;
-  const captcha = req.body.captcha;
+  const token = req.body.token;
+  console.log(url);
+  console.log(token);
   //const params = {secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp", response : captcha}
+  /*
   await axios.post('https://www.google.com/recaptcha/api/siteverify',
         {
           secret : "6Lc5csIbAAAAAJVDT0Mzetg2UoTRufbyuH1xPnZp",
@@ -57,7 +60,7 @@ router.post('/captcha', async (req, res) => {
         }).then(function (response){
           console.log(response.data);
         });
-  
+  */
   //if (body.success == true) {
     const instance = new Url({
       url: url,

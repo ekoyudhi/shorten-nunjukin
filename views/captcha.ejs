@@ -35,7 +35,8 @@
           <button class="btn btn-primary" type="button" id="shorten">Pendekin</button>
         </div>
       </div>
-      <div id="captcha_form"></div>
+      <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+      <input type="hidden" id="action" name="action" value="validate_captcha">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="pendek">URL Pendek</label>
@@ -62,17 +63,24 @@
         copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
       }
+
       grecaptcha.ready(function() {
-        grecaptcha.execute('6Lc5csIbAAAAADtns10HAQgHNLnZpNbp0A8JXZ4X', {action: 'check_captcha'}).then(function(token) {
-          $('#shorten').click(function() {
-              const url = $('#url').val();
-              $.ajax({url: '/captcha', data: { url : url, captcha : token}, type: 'POST', success: function(res) {
-                    $('#pendek').val(window.location.hostname+'/'+res.url);
-                    $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
-              }});
-          });
+        grecaptcha.execute('6Lc5csIbAAAAADtns10HAQgHNLnZpNbp0A8JXZ4X', {action: 'validate_captcha'}).then(function(token) {
+          document.getElementById('g-recaptcha-response').value = token;
         });
       });
+
+      $(document).ready(function() {
+        $('#shorten').click(function() {
+          const url = $('#url').val();
+          const token = $('#g-recaptcha-response').val();
+          const action = $('#action').val();
+          $.ajax({url: '/captcha', data: { url: url, token: token, action: action }, type: 'POST', success: function(res) {
+            $('#pendek').val(window.location.hostname+'/'+res.url);
+            $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
+          }})
+        })
+      })
     </script>
   </body>
 </html>
