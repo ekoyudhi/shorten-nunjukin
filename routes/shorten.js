@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
 router.get('/captcha', (req, res) => {
   res.render('captcha');
 });
-router.post('/captcha', async (req, res) => {
+router.post('/captcha', (req, res) => {
   const url = req.body.url;
   const token = req.body.token;
   console.log(url);
