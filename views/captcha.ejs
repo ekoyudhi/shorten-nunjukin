@@ -62,25 +62,15 @@
         copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
       }
-      $(document).ready(function() {
-        $('#shorten').click(function() {
-            event.preventDefault();
-          const url = $('#url').val();
-          /*
-          $.ajax({url: '/', data: { url }, type: 'POST', success: function(res) {
-            $('#pendek').val(window.location.hostname+'/'+res.url);
-            $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
-          }});
-          */
-          grecaptcha.ready(function() {
-            grecaptcha.execute('6Lc5csIbAAAAADtns10HAQgHNLnZpNbp0A8JXZ4X', {action: 'check_captcha'}).then(function(token) {
-                const captcha = token;
-                $.ajax({url: '/captcha', data: { url : url, captcha : captcha}, type: 'POST', success: function(res) {
+      grecaptcha.ready(function() {
+        grecaptcha.execute('6Lc5csIbAAAAADtns10HAQgHNLnZpNbp0A8JXZ4X', {action: 'check_captcha'}).then(function(token) {
+          $('#shorten').click(function() {
+              const url = $('#url').val();
+              $.ajax({url: '/captcha', data: { url : url, captcha : captcha}, type: 'POST', success: function(res) {
                     $('#pendek').val(window.location.hostname+'/'+res.url);
                     $('#analytics').val(window.location.hostname+'/analytics/'+res.url)
-                }});
-            });;
-        });
+              }});
+          });
         });
       });
     </script>
